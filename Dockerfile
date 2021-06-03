@@ -1,30 +1,26 @@
-# Borrowed and modified example from:
-# https://blog.logrocket.com/packaging-a-rust-web-service-using-docker/
-
 # --- build image ---
-FROM rust:1.43 as build
+FROM rust_playground_api_deps:latest as build
 
-RUN USER=root cargo new --bin rust-playground-api
+ARG APP=/usr/src/app
+
+ENV TZ=Etc/UTC \
+    APP_USER=appuser
 
 WORKDIR ./rust-playground-api
 
-COPY ./Cargo.toml ./Cargo.toml
-
-ADD . ./
-ADD ./src ./src
-
 RUN cargo build --release
 
-RUN rm src/*.rs && \
-    rm ./target/release/deps/main* && \
-    rm -rf target/debug && \
-    rm .gitignore && \
-    rm Dockerfile && \
-    rm LICENSE && \
-    rm serve.sh && \
-    rm start.sh && \
-    rm stop.sh && \
-    rm deps.sh
+RUN rm src/*.rs || true; \
+    rm ./target/release/deps/main* || true; \
+    rm -rf target/debug || true; \
+    rm -rf deps || true; \
+    rm .gitignore || true; \
+    rm Dockerfile || true; \
+    rm LICENSE || true; \
+    rm serve.sh || true; \
+    rm start.sh || true; \
+    rm stop.sh || true; \
+    rm deps.sh || true
 
 
 # --- run image ---
@@ -46,6 +42,12 @@ RUN groupadd $APP_USER && \
     mkdir -p ${APP}
 
 COPY --from=build /rust-playground-api/target/release/main ${APP}/main
+COPY --from=build /rust-playground-api/asm.sh ${APP}/
+COPY --from=build /rust-playground-api/build.sh ${APP}/
+COPY --from=build /rust-playground-api/run.sh ${APP}/
+COPY --from=build /rust-playground-api/test.sh ${APP}/
+COPY --from=build /rust-playground-api/wasm.sh ${APP}/
+COPY --from=build /rust-playground-api/src/example1/main.rs ${APP}/src/example1/main.rs
 
 RUN chown -R $APP_USER:$APP_USER ${APP}
 

@@ -20,5 +20,8 @@ path = "src/example1/main.rs"
 
 [dependencies]
 # Run this once first: cargo install cargo-watch
-tokio = { version = "0.2", features = ["macros", "rt-threaded"] }
-warp = "0.2"
+tokio = { version = "1", features = ["full"] }
+warp = "0.3"
+warp-real-ip = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
