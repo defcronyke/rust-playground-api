@@ -16,3 +16,5 @@ name = "example1"
 path = "src/example1/main.rs"
 
 [dependencies]
+tokio = { version = "0.2", features = ["macros", "rt-threaded"] }
+warp = "0.2"
