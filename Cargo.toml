@@ -1,3 +1,6 @@
+# NOTE: External depends on cargo-watch. See 
+# comment in [dependencies] section below.
+
 [package]
 name = "rust-playground-api"
 version = "0.1.0"
@@ -16,5 +19,6 @@ name = "example1"
 path = "src/example1/main.rs"
 
 [dependencies]
+# Run this once first: cargo install cargo-watch
 tokio = { version = "0.2", features = ["macros", "rt-threaded"] }
 warp = "0.2"
