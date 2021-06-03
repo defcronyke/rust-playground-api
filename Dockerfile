@@ -15,9 +15,16 @@ ADD ./src ./src
 
 RUN cargo build --release
 
-RUN rm src/*.rs
-
-RUN rm ./target/release/deps/main* || true
+RUN rm src/*.rs && \
+    rm ./target/release/deps/main* && \
+    rm -rf target/debug && \
+    rm .gitignore && \
+    rm Dockerfile && \
+    rm LICENSE && \
+    rm serve.sh && \
+    rm start.sh && \
+    rm stop.sh && \
+    rm deps.sh
 
 
 # --- run image ---
