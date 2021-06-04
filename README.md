@@ -29,6 +29,22 @@ cd rust-playground-api && chmod 755 *
 
 ---
 
+## Run the program
+
+- Automated build version:
+
+  ```shell
+  ./rust-playground-api
+  ```
+
+- Git source version:
+
+  ```shell
+  ./serve.sh
+  ```
+
+---
+
 ## API routes available
 
 - Run the code: GET /run [http://localhost:8080](http://localhost:8080)
@@ -40,3 +56,31 @@ cd rust-playground-api && chmod 755 *
 - Build and output WebAssembly of the code: GET /wasm [http://localhost:8080/wasm](http://localhost:8080/wasm)
 
 - Build and output Assembly of the code: GET /asm [http://localhost:8080/asm](http://localhost:8080/asm)
+
+---
+
+## Build and run the Docker container
+
+- Build the dependencies image:
+
+  ```shell
+  ./deps.sh
+  ```
+
+- Build the production image:
+
+  ```shell
+  ./prod.sh
+  ```
+
+- Run the Docker container:
+
+  ```shell
+  ./start.sh
+  ```
+
+- Stop the Docker container when finished:
+
+  ```shell
+  ./stop.sh
+  ```
