@@ -4,7 +4,7 @@
 
 v0.0.1 - "Hello, world! version" - 2021 by `Jeremy Carter <jeremy@jeremycarter.ca>`
 
-GitLab: [https://gitlab.com/defcronyke/rust-playground-api](https://gitlab.com/defcronyke/rust-playground-api)
+GitLab: [https://gitlab.com/defcronyke/rust-playground-api](https://gitlab.com/defcronyke/rust-playground-api)  
 GitHub: [https://github.com/defcronyke/rust-playground-api](https://github.com/defcronyke/rust-playground-api)
 
 ---
