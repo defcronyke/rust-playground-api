@@ -29,6 +29,15 @@ cd rust-playground-api && chmod 755 *
 
 ---
 
+## (Optional) Clone the source code with git
+
+```shell
+git clone https://github.com/defcronyke/rust-playground-api.git && \
+cd rust-playground-api
+```
+
+---
+
 ## Run the program
 
 - Automated build version:
@@ -47,7 +56,7 @@ cd rust-playground-api && chmod 755 *
 
 ## API routes available
 
-- Run the code: GET /run [http://localhost:8080](http://localhost:8080)
+- Run the code: GET / [http://localhost:8080](http://localhost:8080)
 
 - Run the test suite: GET /test [http://localhost:8080/test](http://localhost:8080/test)
 
