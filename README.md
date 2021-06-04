@@ -1,6 +1,6 @@
 # Rust Playground API
 
-[![sponsor the project](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=https://github.com/sponsors/defcronyke)](https://github.com/sponsors/defcronyke) [![github-pipeline](https://github.com/defcronyke/rust-playground-api/workflows/github-pipeline/badge.svg)](https://github.com/defcronyke/rust-playground-api/actions)
+[![sponsor the project](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=https://github.com/sponsors/defcronyke)](https://github.com/sponsors/defcronyke) [![github-pipeline](https://github.com/defcronyke/rust-playground-api/workflows/github-pipeline/badge.svg)](https://github.com/defcronyke/rust-playground-api/actions) [![pipeline status](https://gitlab.com/defcronyke/rust-playground-api/badges/master/pipeline.svg)](https://gitlab.com/defcronyke/rust-playground-api/-/pipelines)
 
 ---
 
@@ -17,8 +17,10 @@ Run some Rust code online. Get the program's output, as well as assembly and Web
 
 ## Automated builds from the master branch
 
+- [Linux x86_64 (GitLab mirror)](https://gitlab.com/defcronyke/rust-playground-api/-/jobs/artifacts/master/download?job=release-linux-x86_64)
 - [Linux x86_64 (GitHub mirror)](https://tinyurl.com/github-artifact?repo=defcronyke/rust-playground-api&file=rust-playground-api-release-linux-x86_64)
 
+- [Linux x86_64 Debug (GitLab mirror)](https://gitlab.com/defcronyke/rust-playground-api/-/jobs/artifacts/master/download?job=debug-linux-x86_64)
 - [Linux x86_64 Debug (GitHub mirror)](https://tinyurl.com/github-artifact?repo=defcronyke/rust-playground-api&file=rust-playground-api-debug-linux-x86_64)
 
 NOTE: After downloading and extracting from the GitHub mirror, you need to run the following commands because GitHub Actions isn't preserving the correct permissions for the files:

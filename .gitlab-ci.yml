@@ -1,0 +1,70 @@
+# Copyright © 2021 Jeremy Carter <jeremy@jeremycarter.ca>
+#
+# By using this software, you agree to the LICENSE TERMS
+# outlined in the file titled LICENSE.md contained in the
+# top-level directory of this project. If you don't agree
+# to the LICENSE TERMS, you aren't allowed to use this
+# software.
+
+# The GitLab CI/CD pipeline configuration lives in this
+# file.
+
+image: "rust:latest"
+
+# NOTE: Install some compilers and build tools if necessary.
+# You may need this if your project depends on C code.
+# before_script:
+#   - apt-get update
+#   - apt-get install -y build-essential
+
+# These are the GitLab CI/CD pipeline stages we want to run.
+stages:
+  # - test
+  # - docs
+  - debug-linux-x86_64
+  - debug-windows-x86_64
+  - release-linux-x86_64
+  - release-windows-x86_64
+
+# Pipeline "debug-linux-x86_64" stage - Use cargo to build the Linux x86_64 debug binary for this project.
+debug-linux-x86_64:
+  stage: debug-linux-x86_64
+  timeout: 3h
+  needs: # Wait for a previous stage to finish before running this stage.
+    []
+  # "test",
+  script:
+    - sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y # Install OS updates.
+    - rustc --version && cargo --version # Display rustc and cargo versions.
+    - RUST_BACKTRACE=full cargo build --verbose
+    - mkdir -p rust-playground-api
+    - cp target/debug/main rust-playground-api/rust-playground-api
+    - cp asm.sh build.sh run.sh test.sh wasm.sh rust-playground-api/
+    - chmod 755 rust-playground-api/rust-playground-api
+  artifacts:
+    name: rust-playground-api-debug-linux-x86_64
+    # expire_in: never  # Keep this stage's output artifacts forever.
+    paths: # The files found at these paths will be added to the artifacts archive for this pipeline stage.
+      - rust-playground-api
+
+# Pipeline "release-linux-x86_64" stage - Use cargo to build the Linux x86_64 release binary for this project.
+release-linux-x86_64:
+  stage: release-linux-x86_64
+  timeout: 3h
+  needs: # Wait for a previous stage to finish before running this stage.
+    []
+  # "test",
+  script:
+    - sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y # Install OS updates.
+    - rustc --version && cargo --version # Display rustc and cargo versions.
+    - RUST_BACKTRACE=full cargo build --release --verbose
+    - mkdir -p rust-playground-api
+    - cp target/release/main rust-playground-api/rust-playground-api
+    - cp asm.sh build.sh run.sh test.sh wasm.sh rust-playground-api/
+    - strip -s rust-playground-api/rust-playground-api
+    - chmod 755 rust-playground-api/rust-playground-api
+  artifacts:
+    name: rust-playground-api-release-linux-x86_64
+    # expire_in: never  # Keep this stage's output artifacts forever.
+    paths: # The files found at these paths will be added to the artifacts archive for this pipeline stage.
+      - rust-playground-api
