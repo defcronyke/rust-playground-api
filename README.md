@@ -17,8 +17,12 @@ Run some Rust code online. Get the program's output, as well as assembly and Web
 
 ## Automated builds from the master branch
 
+### Release Binary
+
 - [Linux x86_64 (GitLab mirror)](https://gitlab.com/defcronyke/rust-playground-api/-/jobs/artifacts/master/download?job=release-linux-x86_64)
 - [Linux x86_64 (GitHub mirror)](https://tinyurl.com/github-artifact?repo=defcronyke/rust-playground-api&file=rust-playground-api-release-linux-x86_64)
+
+### Debug Binary
 
 - [Linux x86_64 Debug (GitLab mirror)](https://gitlab.com/defcronyke/rust-playground-api/-/jobs/artifacts/master/download?job=debug-linux-x86_64)
 - [Linux x86_64 Debug (GitHub mirror)](https://tinyurl.com/github-artifact?repo=defcronyke/rust-playground-api&file=rust-playground-api-debug-linux-x86_64)
