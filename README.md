@@ -4,7 +4,7 @@
 
 ---
 
-v0.1.0 - 2021 by `Jeremy Carter <jeremy@jeremycarter.ca>`
+v0.1.2 - 2021 by `Jeremy Carter <jeremy@jeremycarter.ca>`
 
 GitLab: [https://gitlab.com/defcronyke/rust-playground-api](https://gitlab.com/defcronyke/rust-playground-api)  
 GitHub: [https://github.com/defcronyke/rust-playground-api](https://github.com/defcronyke/rust-playground-api)
@@ -12,6 +12,12 @@ GitHub: [https://github.com/defcronyke/rust-playground-api](https://github.com/d
 ---
 
 Run some Rust code online. Get the program's output, as well as assembly and WebAssembly, as a JSON response.
+
+Example:  
+[https://tinyurl.com/rust-playground-api?id=1ea016619193533f9ac6cd1d8ae22d58](https://tinyurl.com/rust-playground-api?id=1ea016619193533f9ac6cd1d8ae22d58)  
+[https://tinyurl.com/rust-playground-api-run?id=1ea016619193533f9ac6cd1d8ae22d58](https://tinyurl.com/rust-playground-api-run?id=1ea016619193533f9ac6cd1d8ae22d58)  
+[https://tinyurl.com/rust-playground-api-wasm?id=1ea016619193533f9ac6cd1d8ae22d58](https://tinyurl.com/rust-playground-api-wasm?id=1ea016619193533f9ac6cd1d8ae22d58)  
+[https://tinyurl.com/rust-playground-api-asm?id=1ea016619193533f9ac6cd1d8ae22d58](https://tinyurl.com/rust-playground-api-asm?id=1ea016619193533f9ac6cd1d8ae22d58)
 
 ---
 
