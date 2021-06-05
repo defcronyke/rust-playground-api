@@ -8,6 +8,11 @@ ENV TZ=Etc/UTC \
 
 WORKDIR ./rust-playground-api
 
+COPY ./Cargo.toml ./Cargo.toml
+
+ADD . ./
+ADD ./src ./src
+
 RUN cargo build --release
 
 RUN rm src/*.rs || true; \
@@ -42,11 +47,12 @@ RUN groupadd $APP_USER && \
     mkdir -p ${APP}
 
 COPY --from=build /rust-playground-api/target/release/main ${APP}/main
-COPY --from=build /rust-playground-api/asm.sh ${APP}/
-COPY --from=build /rust-playground-api/build.sh ${APP}/
-COPY --from=build /rust-playground-api/run.sh ${APP}/
-COPY --from=build /rust-playground-api/test.sh ${APP}/
-COPY --from=build /rust-playground-api/wasm.sh ${APP}/
+COPY --from=build /rust-playground-api/gist.sh ${APP}/
+COPY --from=build /rust-playground-api/asm-gist.sh ${APP}/
+COPY --from=build /rust-playground-api/build-gist.sh ${APP}/
+COPY --from=build /rust-playground-api/run-gist.sh ${APP}/
+COPY --from=build /rust-playground-api/test-gist.sh ${APP}/
+COPY --from=build /rust-playground-api/wasm-gist.sh ${APP}/
 COPY --from=build /rust-playground-api/src/example1/main.rs ${APP}/src/example1/main.rs
 
 RUN chown -R $APP_USER:$APP_USER ${APP}

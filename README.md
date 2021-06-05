@@ -4,7 +4,7 @@
 
 ---
 
-v0.0.1 - "Hello, world! version" - 2021 by `Jeremy Carter <jeremy@jeremycarter.ca>`
+v0.1.0 - 2021 by `Jeremy Carter <jeremy@jeremycarter.ca>`
 
 GitLab: [https://gitlab.com/defcronyke/rust-playground-api](https://gitlab.com/defcronyke/rust-playground-api)  
 GitHub: [https://github.com/defcronyke/rust-playground-api](https://github.com/defcronyke/rust-playground-api)
@@ -60,17 +60,38 @@ cd rust-playground-api
 
 ---
 
+## Usage
+
+1. Make a GitHub `secret` or `public` Gist, with your desired `Rust` program code in it:
+   [https://gist.github.com](https://gist.github.com)
+
+2. Get the Gist's ID from its URL, for example the `id` value as below:
+   https://gist.github.com/{username}/{id}
+
+3. Run the `Rust` code by using the `id` in your GET request, for example:
+   [http://localhost:8080/?id=1ea016619193533f9ac6cd1d8ae22d58](http://localhost:8080/?id=1ea016619193533f9ac6cd1d8ae22d58)
+
+---
+
 ## API routes available
 
-- Run the code: GET / [http://localhost:8080](http://localhost:8080)
+_Use your desired "GitHub Gist ID" for the `id` GET query parameter in the example requests below. The `Rust` code in that Gist will be used for
+the query._
 
-- Run the test suite: GET /test [http://localhost:8080/test](http://localhost:8080/test)
+- Run the code:
+  GET /?id=1ea016619193533f9ac6cd1d8ae22d58 [http://localhost:8080/?id=1ea016619193533f9ac6cd1d8ae22d58](http://localhost:8080/?id=1ea016619193533f9ac6cd1d8ae22d58)
 
-- Build the code: GET /build [http://localhost:8080/build](http://localhost:8080/build)
+- Run the test suite:
+  GET /test?id=1ea016619193533f9ac6cd1d8ae22d58 [http://localhost:8080/test?id=1ea016619193533f9ac6cd1d8ae22d58](http://localhost:8080/test?id=1ea016619193533f9ac6cd1d8ae22d58)
 
-- Build and output WebAssembly of the code: GET /wasm [http://localhost:8080/wasm](http://localhost:8080/wasm)
+- Build the code:
+  GET /build?id=1ea016619193533f9ac6cd1d8ae22d58 [http://localhost:8080/build?id=1ea016619193533f9ac6cd1d8ae22d58](http://localhost:8080/build?id=1ea016619193533f9ac6cd1d8ae22d58)
 
-- Build and output Assembly of the code: GET /asm [http://localhost:8080/asm](http://localhost:8080/asm)
+- Build and output WebAssembly of the code:
+  GET /wasm?id=1ea016619193533f9ac6cd1d8ae22d58 [http://localhost:8080/wasm?id=1ea016619193533f9ac6cd1d8ae22d58](http://localhost:8080/wasm?id=1ea016619193533f9ac6cd1d8ae22d58)
+
+- Build and output Assembly of the code:
+  GET /asm?id=1ea016619193533f9ac6cd1d8ae22d58 [http://localhost:8080/asm?id=1ea016619193533f9ac6cd1d8ae22d58](http://localhost:8080/asm?id=1ea016619193533f9ac6cd1d8ae22d58)
 
 ---
 

@@ -25,7 +25,7 @@ jobs:
           RUST_BACKTRACE=full cargo build --verbose
           mkdir -p rust-playground-api/rust-playground-api
           cp target/debug/main rust-playground-api/rust-playground-api/rust-playground-api
-          cp asm.sh build.sh run.sh test.sh wasm.sh rust-playground-api/rust-playground-api/
+          cp gist.sh asm-gist.sh build-gist.sh run-gist.sh test-gist.sh wasm-gist.sh rust-playground-api/rust-playground-api/
           chmod 755 rust-playground-api/rust-playground-api/rust-playground-api
 
       - name: rust-playground-api-debug-linux-x86_64
@@ -48,7 +48,7 @@ jobs:
           RUST_BACKTRACE=full cargo build --release --verbose
           mkdir -p rust-playground-api/rust-playground-api
           cp target/release/main rust-playground-api/rust-playground-api/rust-playground-api
-          cp asm.sh build.sh run.sh test.sh wasm.sh rust-playground-api/rust-playground-api/
+          cp gist.sh asm-gist.sh build-gist.sh run-gist.sh test-gist.sh wasm-gist.sh rust-playground-api/rust-playground-api/
           strip -s rust-playground-api/rust-playground-api/rust-playground-api
           chmod 755 rust-playground-api/rust-playground-api/rust-playground-api
 

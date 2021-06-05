@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::env;
 use std::error::Error;
 use std::net::IpAddr;
@@ -10,6 +10,12 @@ use warp::{reject, Filter, Reply};
 use warp_real_ip::real_ip;
 
 type Result<T> = std::result::Result<T, Rejection>;
+
+/** Gist `id` GET query param. */
+#[derive(Deserialize)]
+struct Gist {
+    id: String,
+}
 
 #[derive(Debug, Serialize)]
 struct ErrorMessage {
@@ -30,12 +36,20 @@ async fn health_handler(addr: String) -> Result<impl Reply> {
     Ok("{\"code\": 200, \"message\": \"200 OK\"}")
 }
 
-async fn asm_handler(addr: String) -> Result<impl Reply> {
-    println!("|info| GET /asm | from: {}", addr);
+async fn asm_handler(addr: String, id: String) -> Result<impl Reply> {
+    let id_param = {
+        if id == "" {
+            "1ea016619193533f9ac6cd1d8ae22d58".to_string()
+        } else {
+            id
+        }
+    };
+
+    println!("|info| GET /asm?id={} | from: {}", id_param, addr);
 
     let output = Command::new("/bin/bash")
         .arg("-c")
-        .arg("./asm.sh")
+        .arg(format!("./asm-gist.sh {}", id_param))
         .output()
         .expect("failed to execute process");
 
@@ -47,12 +61,20 @@ async fn asm_handler(addr: String) -> Result<impl Reply> {
     Ok(stdout)
 }
 
-async fn build_handler(addr: String) -> Result<impl Reply> {
-    println!("|info| GET /build | from: {}", addr);
+async fn build_handler(addr: String, id: String) -> Result<impl Reply> {
+    let id_param = {
+        if id == "" {
+            "1ea016619193533f9ac6cd1d8ae22d58".to_string()
+        } else {
+            id
+        }
+    };
+
+    println!("|info| GET /build?id={} | from: {}", id_param, addr);
 
     let output = Command::new("/bin/bash")
         .arg("-c")
-        .arg("./build.sh")
+        .arg(format!("./build-gist.sh {}", id_param))
         .output()
         .expect("failed to execute process");
 
@@ -64,12 +86,23 @@ async fn build_handler(addr: String) -> Result<impl Reply> {
     Ok(stdout)
 }
 
-async fn run_handler(addr: String) -> Result<impl Reply> {
-    println!("|info| GET / (or GET /run) | from: {}", addr);
+async fn run_handler(addr: String, id: String) -> Result<impl Reply> {
+    let id_param = {
+        if id == "" {
+            "1ea016619193533f9ac6cd1d8ae22d58".to_string()
+        } else {
+            id
+        }
+    };
+
+    println!(
+        "|info| GET /?id={} (or GET /run?id={}) | from: {}",
+        id_param, id_param, addr
+    );
 
     let output = Command::new("/bin/bash")
         .arg("-c")
-        .arg("./run.sh")
+        .arg(format!("./run-gist.sh {}", id_param))
         .output()
         .expect("failed to execute process");
 
@@ -81,12 +114,20 @@ async fn run_handler(addr: String) -> Result<impl Reply> {
     Ok(stdout)
 }
 
-async fn test_handler(addr: String) -> Result<impl Reply> {
-    println!("|info| GET /test | from: {}", addr);
+async fn test_handler(addr: String, id: String) -> Result<impl Reply> {
+    let id_param = {
+        if id == "" {
+            "1ea016619193533f9ac6cd1d8ae22d58".to_string()
+        } else {
+            id
+        }
+    };
+
+    println!("|info| GET /test?id={} | from: {}", id_param, addr);
 
     let output = Command::new("/bin/bash")
         .arg("-c")
-        .arg("./test.sh")
+        .arg(format!("./test-gist.sh {}", id_param))
         .output()
         .expect("failed to execute process");
 
@@ -98,12 +139,20 @@ async fn test_handler(addr: String) -> Result<impl Reply> {
     Ok(stdout)
 }
 
-async fn wasm_handler(addr: String) -> Result<impl Reply> {
-    println!("|info| GET /wasm | from: {}", addr);
+async fn wasm_handler(addr: String, id: String) -> Result<impl Reply> {
+    let id_param = {
+        if id == "" {
+            "1ea016619193533f9ac6cd1d8ae22d58".to_string()
+        } else {
+            id
+        }
+    };
+
+    println!("|info| GET /wasm?id={} | from: {}", id_param, addr);
 
     let output = Command::new("/bin/bash")
         .arg("-c")
-        .arg("./wasm.sh")
+        .arg(format!("./wasm-gist.sh {}", id_param))
         .output()
         .expect("failed to execute process");
 
@@ -182,36 +231,72 @@ async fn main() {
     let asm_route = warp::path!("asm").and(
         real_ip(vec![proxy_addr])
             .map(|addr: Option<IpAddr>| format!("{:?}", addr.unwrap()))
+            .and(
+                warp::query()
+                    .map(|g: Gist| format!("{}", g.id))
+                    .or(warp::get().map(|| String::default()))
+                    .unify(),
+            )
             .and_then(asm_handler),
     );
 
     let build_route = warp::path!("build").and(
         real_ip(vec![proxy_addr])
             .map(|addr: Option<IpAddr>| format!("{:?}", addr.unwrap()))
+            .and(
+                warp::query()
+                    .map(|g: Gist| format!("{}", g.id))
+                    .or(warp::get().map(|| String::default()))
+                    .unify(),
+            )
             .and_then(build_handler),
     );
 
     let run_route = warp::path!("run").and(
         real_ip(vec![proxy_addr])
             .map(|addr: Option<IpAddr>| format!("{:?}", addr.unwrap()))
+            .and(
+                warp::query()
+                    .map(|g: Gist| format!("{}", g.id))
+                    .or(warp::get().map(|| String::default()))
+                    .unify(),
+            )
             .and_then(run_handler),
     );
 
     let test_route = warp::path!("test").and(
         real_ip(vec![proxy_addr])
             .map(|addr: Option<IpAddr>| format!("{:?}", addr.unwrap()))
+            .and(
+                warp::query()
+                    .map(|g: Gist| format!("{}", g.id))
+                    .or(warp::get().map(|| String::default()))
+                    .unify(),
+            )
             .and_then(test_handler),
     );
 
     let wasm_route = warp::path!("wasm").and(
         real_ip(vec![proxy_addr])
             .map(|addr: Option<IpAddr>| format!("{:?}", addr.unwrap()))
+            .and(
+                warp::query()
+                    .map(|g: Gist| format!("{}", g.id))
+                    .or(warp::get().map(|| String::default()))
+                    .unify(),
+            )
             .and_then(wasm_handler),
     );
 
     let index_route = warp::path::end().and(
         real_ip(vec![proxy_addr])
             .map(|addr: Option<IpAddr>| format!("{:?}", addr.unwrap()))
+            .and(
+                warp::query()
+                    .map(|g: Gist| format!("{}", g.id))
+                    .or(warp::get().map(|| String::default()))
+                    .unify(),
+            )
             .and_then(run_handler),
     );
 
