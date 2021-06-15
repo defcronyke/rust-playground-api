@@ -25,6 +25,7 @@ stages:
   - debug-windows-x86_64
   - release-linux-x86_64
   - release-windows-x86_64
+  # - pages
 
 # Pipeline "debug-linux-x86_64" stage - Use cargo to build the Linux x86_64 debug binary for this project.
 debug-linux-x86_64:
@@ -68,3 +69,13 @@ release-linux-x86_64:
     # expire_in: never  # Keep this stage's output artifacts forever.
     paths: # The files found at these paths will be added to the artifacts archive for this pipeline stage.
       - rust-playground-api
+# pages:
+#   stage: deploy
+#   script:
+#     - echo 'Nothing to do...'
+#   artifacts:
+#     paths:
+#       - public
+#     expire_in: 1 day
+#   only:
+#     - master
