@@ -71,6 +71,8 @@ release-linux-x86_64:
       - rust-playground-api
 # pages:
 #   stage: deploy
+#   needs: # Wait for a previous stage to finish before running this stage.
+#     []
 #   script:
 #     - echo 'Nothing to do...'
 #   artifacts:
