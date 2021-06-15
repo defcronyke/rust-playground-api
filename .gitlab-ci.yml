@@ -25,7 +25,7 @@ stages:
   - debug-windows-x86_64
   - release-linux-x86_64
   - release-windows-x86_64
-  # - pages
+  # - deploy
 
 # Pipeline "debug-linux-x86_64" stage - Use cargo to build the Linux x86_64 debug binary for this project.
 debug-linux-x86_64:
